@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clara Boned, profesora de español</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Concepto: base sobria (verde bosque y blanco cálido) con bloques de color saturado: rojo, rosa, azul eléctrico y amarillo. */
+:root{
+--bg:#FBF6F0;--surface:#FFFFFF;--ink:#14241B;--muted:#56625A;--line:#E8DDD0;
+--band:#25563F;--on-band:#FFFFFF;--on-band-muted:#D3E3DA;
+--verde:#25563F;--granate:#7A1D30;--rosa:#F5B7C0;--rojo:#D91F2B;--azul:#2438D6;--sol:#FFD21F;--on-color:#14241B;
+--t-verde:#E1EEE6;--t-sol:#FFF1BF;--t-rosa:#FBE1E5;
+--link:#2438D6;
+--fd:"Bricolage Grotesque",system-ui,sans-serif;--fb:Figtree,system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1813;--surface:#15221B;--ink:#F3EFE8;--muted:#AAB8AF;--line:#2A3B31;--t-verde:#17332A;--t-sol:#3A3214;--t-rosa:#3E2329;--link:#A9B6FF;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0E1813;--surface:#15221B;--ink:#F3EFE8;--muted:#AAB8AF;--line:#2A3B31;--t-verde:#17332A;--t-sol:#3A3214;--t-rosa:#3E2329;--link:#A9B6FF;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--fb)}
+h1,h2,h3{font-family:var(--fd);font-weight:700;line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--link);outline-offset:3px}
+.wrap{max-width:64rem;margin:0 auto;padding:0 1.5rem}
+nav{display:flex;gap:1rem 1.5rem;align-items:center;justify-content:space-between;padding:1.25rem 0;flex-wrap:wrap}
+nav b{font-family:var(--fd);font-weight:700;font-size:1.3rem;letter-spacing:-.02em}
+nav div{display:flex;gap:.1rem;flex-wrap:wrap}
+nav .lang{gap:.2rem;flex-wrap:nowrap}
+nav a{text-decoration:none;color:var(--ink);font-weight:500;padding:.35rem .55rem;font-size:.95rem;border-radius:999px}
+nav a:hover{background:var(--sol);color:var(--on-color)}
+.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:3.5rem;align-items:center;padding:3rem 0 3.5rem}
+.hero h1{font-size:clamp(2.4rem,6vw,4.2rem)}
+.hl{background:linear-gradient(transparent 62%,var(--sol) 62%)}
+.hero p{max-width:34rem;color:var(--muted);font-size:1.2rem;margin:1.5rem 0 2rem}
+.btns{display:flex;gap:.9rem;flex-wrap:wrap}
+.btn{display:inline-block;background:var(--sol);color:var(--on-color);font:600 1rem var(--fb);padding:.9rem 1.6rem;border:0;border-radius:999px;text-decoration:none;cursor:pointer;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.sec{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+.btn.navy{background:#14241B;color:#fff}
+.hero-r{position:relative;padding-bottom:3rem;min-width:0}
+.retrato{margin:0;aspect-ratio:5/6;border-radius:1.5rem;overflow:hidden;background:var(--rosa);box-shadow:.7rem .7rem 0 var(--sol)}
+.retrato img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block}
+.palabra{position:absolute;left:-2.5rem;bottom:0;width:min(17.5rem,85%);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-top:5px solid var(--granate);border-radius:1rem;padding:1.25rem 1.4rem;box-shadow:0 .8rem 2rem rgba(20,36,27,.12)}
+.palabra small{color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-size:.75rem}
+.palabra h2{color:var(--granate)}
+.palabra button{background:var(--granate);color:#fff}
+.palabra small{font-size:.9rem;font-weight:600}
+.palabra h2{font-size:2rem;margin:.2rem 0 .4rem}
+.palabra p{margin:.25rem 0;color:inherit;font-size:.95rem;line-height:1.45}
+.palabra em{display:block;margin-top:.6rem;font-size:.95rem;line-height:1.45}
+.palabra button{margin-top:1rem;padding:.5rem 1.1rem;font-size:.9rem}
+.titulos{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:1rem;padding-bottom:4rem}
+.titulos div{border-radius:1.1rem;padding:1.15rem 1.3rem;background:var(--verde);color:#fff;border-radius:.9rem}
+.titulos b{display:block;font-family:var(--fd);font-weight:700;font-size:1.15rem;line-height:1.2;margin-bottom:.2rem}
+.titulos span{font-size:.93rem}
+section{padding:4.5rem 0}
+section.alt{background:var(--surface)}
+section>.wrap>h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:1rem}
+.lead{max-width:40rem;color:var(--muted);margin:0 0 2.25rem;font-size:1.1rem}
+.sobre{display:grid;grid-template-columns:1fr 1.6fr;gap:3.5rem;align-items:center}
+.sobre h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:1.25rem}
+.sobre p{margin:0 0 1rem;max-width:40rem}
+.foto{margin:0;aspect-ratio:4/5;max-width:100%;background:#fff;border-radius:1.5rem;box-shadow:-.7rem .7rem 0 var(--rosa);overflow:hidden}
+.foto img{width:100%;height:100%;object-fit:cover;display:block}
+.emp{display:grid;grid-template-columns:1.1fr 1fr;gap:3rem;align-items:center;margin-bottom:2.5rem}
+.emp h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:1rem}
+.emp .lead{margin:0}
+.emp figure{margin:0;aspect-ratio:3/2;border-radius:1.5rem;overflow:hidden;box-shadow:.7rem .7rem 0 var(--granate)}
+.emp img{width:100%;height:100%;object-fit:cover;display:block}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1.25rem}
+.cols>div{border-radius:1.25rem;padding:1.6rem;min-width:0}
+.cols h3{font-size:1.35rem;margin-bottom:.6rem}
+.cols p{margin:0}
+.cols.color>div{color:var(--on-color)}
+.cols.color>div:nth-child(1){background:var(--azul);color:#fff}
+.cols.color>div:nth-child(2){background:var(--sol)}
+.cols.color>div:nth-child(3){background:var(--rosa)}
+.cols.tint>div:nth-child(1){background:var(--t-verde)}
+.cols.tint>div:nth-child(2){background:var(--t-sol)}
+.cols.tint>div:nth-child(3){background:var(--t-rosa)}
+.cols.tint p{color:var(--muted)}
+.clase{display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;align-items:start}
+.dialogo{display:flex;flex-direction:column;gap:.75rem;min-width:0}
+.ctx{margin:0 0 .5rem;color:var(--muted);font-style:italic}
+.turno{max-width:92%;padding:.85rem 1.2rem;border-radius:1.25rem}
+.turno small{display:block;font-weight:700;font-size:.85rem;margin-bottom:.15rem}
+.turno.clara{background:var(--t-rosa);border-bottom-left-radius:.35rem}
+.turno.alumno{background:var(--t-sol);align-self:flex-end;border-bottom-right-radius:.35rem}
+.turno.clara small{display:flex;align-items:center;gap:.5rem}
+.av{width:1.75rem;height:1.75rem;border-radius:50%;object-fit:cover}
+.err{text-decoration:underline wavy var(--rojo);text-underline-offset:4px;text-decoration-thickness:2px}
+.ok{background:var(--verde);color:#fff;border-radius:.3rem;padding:0 .3rem}
+.explica{background:var(--t-verde);border-radius:1.5rem;padding:1.75rem}
+.explica h3{font-size:1.3rem;margin-bottom:1rem}
+.explica dl{margin:0}
+.explica dt{font-weight:700;color:var(--link);margin-top:1rem;letter-spacing:.02em}
+.explica dt:first-of-type{margin-top:0}
+.explica dd{margin:.15rem 0 0;color:var(--muted);font-size:.98rem}
+.opiniones{background:var(--t-rosa)}
+.ops-head{display:flex;align-items:center;gap:1rem 1.25rem;flex-wrap:wrap;margin-bottom:2.25rem}
+.ops-head .lead{margin:0}
+.nota{display:inline-block;background:var(--surface);border-radius:999px;padding:.4rem 1.1rem;font-weight:600;white-space:nowrap}
+.ops{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1.25rem}
+.op{margin:0;background:var(--surface);border-radius:1.25rem;padding:1.5rem;display:flex;flex-direction:column;gap:1.1rem;min-width:0}
+.op blockquote{margin:0;font-size:1.02rem}
+.op figcaption{margin-top:auto;display:flex;align-items:center;gap:.7rem;font-weight:600}
+.ini{width:2.25rem;height:2.25rem;border-radius:50%;display:grid;place-items:center;font:700 1rem var(--fd);color:var(--on-color)}
+.op:nth-child(4n+1) .ini{background:var(--verde);color:#fff}
+.op:nth-child(4n+2) .ini{background:var(--sol)}
+.op:nth-child(4n+3) .ini{background:var(--rojo);color:#fff}
+.op:nth-child(4n+4) .ini{background:var(--azul);color:#fff}
+.reserva{display:grid;grid-template-columns:1.3fr 1fr;gap:2.5rem;align-items:start}
+.cal{min-height:17rem;background:var(--band);color:var(--on-band);border-radius:1.5rem;display:grid;place-items:center;text-align:center;padding:2rem}
+.cal b{display:block;font-family:var(--fd);font-weight:700;font-size:1.6rem;line-height:1.15;margin-bottom:.5rem}
+.cal p{margin:0 0 1.5rem;color:var(--on-band-muted)}
+.pasos{margin:0 0 1.5rem;padding-left:1.25rem}
+.pasos li{margin-bottom:.6rem}
+.politica{background:var(--surface);border:1px solid var(--line);border-radius:1.1rem;padding:1.1rem 1.25rem;margin-bottom:.9rem}
+.politica h3{display:inline-block;font:700 .85rem var(--fb);letter-spacing:.02em;padding:.2rem .75rem;border-radius:999px;color:var(--on-color);margin-bottom:.45rem}
+.politica.t h3{background:var(--sol)}
+.politica.p h3{background:var(--rosa)}
+.politica.c h3{background:var(--rojo);color:#fff}
+.politica p{margin:0;color:var(--muted);font-size:.98rem}
+.band{--on-band-muted:#C3CBE0;background:#14213D;color:var(--on-band)}
+.band h2{color:var(--on-band)}
+.band .lead{color:var(--on-band-muted)}
+.band .cols>div{background:rgba(255,255,255,.08)}
+.band .cols h3{color:var(--sol)}
+.band .cols p{color:var(--on-band-muted)}
+.precio{margin:2rem 0 1rem;font-weight:600}
+.contacto{background:var(--granate);color:#fff}
+.contacto h2{color:#fff}
+.contacto .btn.navy{background:var(--sol);color:var(--on-color)}
+.contacto p{max-width:36rem;margin:0 0 1.5rem}
+.contacto .btn.sec{color:#fff;box-shadow:inset 0 0 0 2px #fff}
+.contacto .mail{font-weight:600;margin:1.25rem 0 0}
+footer{padding:2rem 0;color:var(--muted);font-size:.95rem}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+footer a{color:var(--muted)}
+@media (max-width:48rem){.hero,.sobre,.reserva,.clase{grid-template-columns:1fr;gap:2rem}.emp{grid-template-columns:1fr;gap:2rem}.hero-r{padding-bottom:0}.palabra{position:relative;left:auto;width:auto;margin:-2.5rem 1rem 0}.foto{max-width:22rem}section{padding:3.5rem 0}.turno{max-width:100%}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+.lang{display:flex;gap:.2rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.2rem}
+.lang button{border:0;background:transparent;color:var(--ink);font:600 .85rem var(--fb);padding:.3rem .85rem;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--sol);color:var(--on-color)}
+/* efectos al pasar el cursor: solo en lo clicable */
+.btn{transition:transform .18s ease,box-shadow .18s ease}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--granate)}
+.btn:active{transform:translate(0,0);box-shadow:none}
+.contacto .btn:hover{box-shadow:4px 4px 0 #14241B}
+.btn.sec:hover{box-shadow:inset 0 0 0 2px var(--ink),4px 4px 0 var(--granate)}
+.btn.sec:active{box-shadow:inset 0 0 0 2px var(--ink)}
+.contacto .btn.sec:hover{box-shadow:inset 0 0 0 2px #fff,4px 4px 0 #14241B}
+.contacto .btn.sec:active{box-shadow:inset 0 0 0 2px #fff}
+.lang button{transition:transform .15s}
+.lang button:hover{transform:translateY(-1px)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.btn:hover,.lang button:hover{transform:none}}
+/* decoración discreta */
+header.wrap,main{overflow-x:clip}
+.hero{position:relative}
+.hero>*{position:relative;z-index:1}
+section h2::after{content:"";display:block;width:3.25rem;height:4px;margin-top:.7rem;border-radius:2px;background:var(--granate)}
+.band h2::after,.contacto h2::after{background:var(--sol)}
+main>section{position:relative}
+</style>
+</head>
+<body>
+<header class="wrap">
+<nav>
+<b>Clara Boned</b>
+<div><a href="#sobre-mi" data-i="n1">Sobre mí</a><a href="#metodo" data-i="n2">Método</a><a href="#clase" data-i="n3">Cómo es una clase</a><a href="#opiniones" data-i="n4">Opiniones</a><a href="#reservas" data-i="n5">Reservas</a><a href="#empresas" data-i="n6">Empresas</a><a href="#contacto" data-i="n7">Contacto</a></div>
+<div class="lang" role="group" aria-label="Idioma / Language"><button type="button" data-lang="es" aria-pressed="true">ES</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+</nav>
+<div class="hero">
+<div>
+<h1 data-i="h1">Español dinámico, a tu medida y con <span class="hl">inmersión cultural</span>.</h1>
+<p data-i="hp">Te acompaño a aprender español hablando de lo que vivimos cada día en Valencia, con clases preparadas pensando en ti. Soy Clara, profesora de español y doctora en Educación.</p>
+<div class="btns">
+<a class="btn" href="#reservas" data-i="btn_priv">Reserva tu clase privada</a>
+<a class="btn sec" href="#empresas" data-i="b2">Clases para empresas</a>
+</div>
+</div>
+<div class="hero-r">
+<figure class="retrato"><img src="img/clara-retrato.jpg" alt="Clara Boned, profesora de español" data-i-alt="alt_retrato" width="900" height="1200" fetchpriority="high"></figure>
+<aside class="palabra" aria-live="polite">
+<small data-i="wd">Palabra del día</small>
+<h2 id="w-palabra">sobremesa</h2>
+<p id="w-def">Tiempo que se pasa charlando en la mesa después de comer.</p>
+<em id="w-ej">“La sobremesa duró más que la comida.”</em>
+<button type="button" class="btn navy" id="w-otra" data-i="wo">Otra palabra</button>
+</aside>
+</div>
+</div>
+<div class="titulos">
+<div><b data-i="t1b">Doctora en Educación</b><span data-i="t1s">Formación académica</span></div>
+<div><b data-i="t2b">Licenciada en Magisterio</b><span data-i="t2s">Formación docente</span></div>
+<div><b data-i="t3b">3 años enseñando ELE</b><span data-i="t3s">Español como lengua extranjera</span></div>
+<div><b data-i="t4b">Profesora universitaria</b><span data-i="t4s">Docencia presencial en Valencia</span></div>
+</div>
+</header>
+
+<main>
+<section id="sobre-mi" class="alt"><div class="wrap sobre">
+<figure class="foto"><img src="img/clara-sobre-mi.jpg" alt="Clara Boned con gafas de carey, sonriendo" data-i-alt="alt_sobre" width="800" height="1000" loading="lazy"></figure>
+<div>
+<h2 data-i="s_h">Sobre mí</h2>
+<p data-i="s_p1">Soy licenciada en Magisterio y doctora en Educación. Llevo tres años enseñando español como lengua extranjera, y esa experiencia me ha llevado a crear mi propio método de enseñanza.</p>
+<p data-i="s_p2">Actualmente doy clases presenciales de ELE en una universidad de Valencia, y trabajo también con estudiantes particulares que quieren un acompañamiento más personal.</p>
+<p data-i="s_p3">Mis clases se diferencian porque son muy dinámicas. Hablaremos de tus intereses y practicaremos mientras te enseño y te corrijo. También conversaremos sobre lo que pasa en la ciudad, y así aprenderás gramática y vocabulario al mismo tiempo.</p>
+<p data-i="s_p4">Entiendo inglés, así que si te atascas puedo echarte una mano con una palabra o una explicación rápida. Pero hablaremos en español todo el tiempo posible: es la mejor forma de aprender.</p>
+<div class="btns" style="margin-top:1.5rem"><a class="btn" href="#clase" data-i="s_b1">Mira cómo es una clase ↓</a><a class="btn sec" href="#opiniones" data-i="s_b2">Lo que dicen mis alumnos</a></div>
+</div>
+</div></section>
+
+<section id="metodo"><div class="wrap">
+<h2 data-i="m_h">Mi método</h2>
+<p class="lead" data-i="m_lead">Un método propio, pensado para que aprender español sea útil desde la primera clase.</p>
+<div class="cols color">
+<div><h3 data-i="m1h">Dinámico</h3><p data-i="m1p">Clases activas en las que hablas, participas y practicas, en lugar de solo escuchar explicaciones.</p></div>
+<div><h3 data-i="m2h">Adaptado a ti</h3><p data-i="m2p">Cada estudiante tiene objetivos y necesidades distintas, y el contenido de las clases se ajusta a ellos.</p></div>
+<div><h3 data-i="m3h">Con inmersión cultural</h3><p data-i="m3p">El aprendizaje siempre se vincula con la cultura: la lengua se entiende mejor cuando se vive.</p></div>
+</div>
+</div></section>
+
+<section id="clase" class="alt"><div class="wrap">
+<h2 data-i="c_h">Así es una clase con Clara</h2>
+<p class="lead" data-i="c_lead">Todas mis clases parten de una conversación sobre algo real. La gramática aparece cuando la necesitas y la corrección es constante y natural. Este es un ejemplo.</p>
+<p class="lead" data-i="c_len">Si necesitas apoyo, hablo inglés, pero en clase hablamos en español el máximo tiempo posible.</p>
+<div class="clase">
+<div class="dialogo" role="list" aria-label="Diálogo de ejemplo" data-i-aria="aria_dlg">
+<p class="ctx" data-i="c_ctx">Valencia, principios de noviembre. Clara empieza la clase con algo que se ve por la calle.</p>
+<div class="turno clara" role="listitem"><small><img class="av" src="img/clara-avatar.jpg" alt="" width="28" height="28">Clara</small>¿Has visto la decoración de Navidad en las calles? ¡Ya están puestas y solo es 1 de noviembre!</div>
+<div class="turno alumno" role="listitem"><small data-i="est">Estudiante</small>Sí, ¡es muy pronto! En mi país <span class="err">ya no</span> ponen luces en noviembre.</div>
+<div class="turno clara" role="listitem"><small><img class="av" src="img/clara-avatar.jpg" alt="" width="28" height="28">Clara</small>Cuidado con ese “ya no”. ¿Quieres decir que antes las ponían y ahora no? ¿O que en noviembre todavía no las ponen?</div>
+<div class="turno alumno" role="listitem"><small data-i="est">Estudiante</small>Ah, la segunda. En mi país <span class="ok">todavía no</span> ponen luces en noviembre. Esperan a diciembre.</div>
+<div class="turno clara" role="listitem"><small><img class="av" src="img/clara-avatar.jpg" alt="" width="28" height="28">Clara</small>¡Exacto! Y aquí, en cambio, ya están puestas. ¿Y tú? ¿Ya has empezado a pensar en los regalos?</div>
+<div class="turno alumno" role="listitem"><small data-i="est">Estudiante</small>Todavía no he comprado nada, pero ya tengo algunas ideas.</div>
+</div>
+<aside class="explica">
+<h3 data-i="c_exh">Lo que explica Clara</h3>
+<dl>
+<dt>YA</dt><dd data-i="c_ya">La acción ya ha ocurrido, a veces antes de lo esperado. “Ya están puestas las luces.”</dd>
+<dt>TODAVÍA NO</dt><dd data-i="c_tn">La acción no ha ocurrido, pero se espera que ocurra. “En mi país todavía no ponen luces.”</dd>
+<dt>YA NO</dt><dd data-i="c_yn">Algo que antes ocurría y ha dejado de ocurrir. “Ya no ponen luces en noviembre” quiere decir que antes sí las ponían.</dd>
+</dl>
+</aside>
+</div>
+<div class="cols tint" style="margin-top:2.5rem">
+<div><h3 data-i="k1h">Parte de lo real</h3><p data-i="k1p">El punto de partida es algo que has visto o vivido en la ciudad, no una lista de ejercicios.</p></div>
+<div><h3 data-i="k2h">Corrección constante</h3><p data-i="k2p">Corrijo en el momento y sin cortar la conversación, para que sigas hablando.</p></div>
+<div><h3 data-i="k3h">La gramática nace del error</h3><p data-i="k3p">La explicación aparece cuando el error la hace necesaria, y se practica enseguida.</p></div>
+</div>
+</div></section>
+
+<section id="opiniones" class="opiniones"><div class="wrap">
+<h2 data-i="o_h">Lo que dicen mis alumnos</h2>
+<div class="ops-head">
+<span class="nota" data-i="o_nota">★ 5 de 5 · 12 opiniones</span>
+<p class="lead" data-i="o_lead">Opiniones de alumnos de clases particulares.</p>
+</div>
+<div class="ops">
+<figure class="op"><blockquote>“Aprender con ella es muy divertido porque el ambiente es relajado, dinámico y Clara es muy creativa: siempre se esfuerza en crear juegos que nos motivan a pensar.”</blockquote><figcaption><span class="ini" aria-hidden="true">T</span>Tamara</figcaption></figure>
+<figure class="op"><blockquote>“Ella me explica la gramática y tenemos conversaciones interesantes! Es como quedar con una amiga y al mismo tiempo estoy aprendiendo un montón de cosas.”</blockquote><figcaption><span class="ini" aria-hidden="true">J</span>Jule</figcaption></figure>
+<figure class="op"><blockquote lang="en">“Clara was super fun to do lessons with. I felt I learnt so much and they were made very enjoyable. I really got to learn the Spanish I wanted to learn and she made me feel like a much more confident speaker.”</blockquote><figcaption><span class="ini" aria-hidden="true">D</span>Devonne</figcaption></figure>
+<figure class="op"><blockquote>“Clara enseña con empatía y alegría. Comparte una gran sabiduría del idioma español.”</blockquote><figcaption><span class="ini" aria-hidden="true">M</span>Makenna</figcaption></figure>
+<figure class="op"><blockquote>“Si quieres aprender español, sin duda recomiendo a Clara, sus clases son siempre divertidas y el tiempo pasa volando antes de que te des cuenta.”</blockquote><figcaption><span class="ini" aria-hidden="true">M</span>Mihwa</figcaption></figure>
+<figure class="op"><blockquote>“Clara es genial. Ella comenzó a enseñarle español a nuestra hija. Mi hija está muy contenta y después de las clases lo habla, canta canciones y juega.”</blockquote><figcaption><span class="ini" aria-hidden="true">A</span>Anton</figcaption></figure>
+</div>
+</div></section>
+
+<section id="reservas"><div class="wrap">
+<h2 data-i="r_h">Reserva tu clase</h2>
+<p class="lead" data-i="r_lead">Elige el día y la hora que mejor te vengan. Las reservas se sincronizan con mi calendario, así que solo verás los huecos libres.</p>
+<div class="reserva">
+<div class="cal"><div><b data-i="r_cb">Elige tu día y hora</b><p data-i="r_cp">Verás mis huecos libres al momento.</p><a class="btn" href="https://cal.com/clara-boned-7xeten/clase-individual" target="_blank" rel="noopener" data-i="btn_priv">Reserva tu clase privada</a></div></div>
+<div>
+<ol class="pasos">
+<li data-i="r1">Elige un hueco libre en el calendario.</li>
+<li data-i="r2">Recibirás un correo de confirmación con la información de la clase.</li>
+<li data-i="r3">Ese mismo correo explica cómo se paga y cómo cancelar.</li>
+</ol>
+<div class="politica t"><h3 data-i="pt_h">Tarifas</h3><p data-i="pt_p">Clase individual: 25 € por hora. Cada alumno adicional paga 5 € más. Empresas: 40 € por hora.</p></div>
+<div class="politica p"><h3 data-i="pp_h">Pago</h3><p data-i="pp_p">Se paga después de la clase, por Revolut, PayPal, transferencia o en efectivo. Los datos de pago te llegan en el correo de confirmación.</p></div>
+<div class="politica c"><h3 data-i="pc_h">Cancelación</h3><p data-i="pc_p">Puedes cancelar o cambiar tu clase hasta 24 horas antes.</p></div>
+</div>
+</div>
+</div></section>
+
+<section id="empresas" class="band"><div class="wrap">
+<div class="emp">
+<div>
+<h2 data-i="e_h">Español para empresas</h2>
+<p class="lead" data-i="e_lead">Formación de español para equipos y profesionales, con el mismo método dinámico y adaptado a las necesidades reales de tu organización.</p>
+</div>
+<figure><img src="img/clara-aula.jpg" alt="Clara Boned con un portátil en un aula de formación" data-i-alt="alt_aula" width="1200" height="800" loading="lazy"></figure>
+</div>
+<div class="cols">
+<div><h3 data-i="e1h">Formación a medida</h3><p data-i="e1p">Analizo el nivel y los objetivos de tu equipo y diseño un programa específico.</p></div>
+<div><h3 data-i="e2h">Español profesional</h3><p data-i="e2p">Vocabulario y situaciones del entorno laboral, trabajados desde el contexto cultural en el que se usan.</p></div>
+<div><h3 data-i="e3h">Experiencia docente</h3><p data-i="e3p">Doctora en Educación, con docencia universitaria presencial en Valencia.</p></div>
+</div>
+<p class="precio" data-i="e_precio">Tarifa para empresas: 40 € por hora.</p>
+<a class="btn" href="mailto:hola@tudominio.com?subject=Formaci%C3%B3n%20de%20espa%C3%B1ol%20para%20empresas" data-i-href="e_href" data-i="e_btn">Pedir una propuesta</a>
+</div></section>
+
+<section id="contacto" class="contacto"><div class="wrap">
+<h2 data-i="ct_h">Contacto</h2>
+<p style="margin-top:1rem" data-i="ct_p">¿Quieres clases particulares o una propuesta para tu empresa? Escríbeme y te respondo con un plan.</p>
+<div class="btns">
+<a class="btn navy" href="mailto:hola@tudominio.com" data-i="ct_b1">Escribir un correo</a>
+<a class="btn sec" href="#reservas" data-i="btn_priv">Reserva tu clase privada</a>
+</div>
+<p class="mail">hola@tudominio.com</p>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span data-i="f1">© 2026 Clara Boned. Clases de español.</span><span><a href="#" data-i="f2">Aviso legal</a> · <a href="#" data-i="f3">Política de privacidad</a></span></div></footer>
+
+<script>
+const palabras=[
+["sobremesa","Tiempo que se pasa charlando en la mesa después de comer.","“La sobremesa duró más que la comida.”","Time spent chatting at the table after a meal.","“La sobremesa duró más que la comida.” (The chat after the meal lasted longer than the meal.)"],
+["estrenar","Usar algo por primera vez.","“Hoy estreno zapatos nuevos.”","To use something for the first time.","“Hoy estreno zapatos nuevos.” (Today I’m wearing my new shoes for the first time.)"],
+["ojalá","Expresa un deseo de que algo ocurra.","“Ojalá haga buen tiempo mañana.”","Expresses a wish that something happens.","“Ojalá haga buen tiempo mañana.” (I hope the weather is nice tomorrow.)"],
+["madrugar","Levantarse muy temprano.","“Mañana tengo que madrugar.”","To get up very early.","“Mañana tengo que madrugar.” (I have to get up early tomorrow.)"],
+["aprovechar","Sacar el mayor partido de algo.","“Aprovecha el día, que va a llover.”","To make the most of something.","“Aprovecha el día, que va a llover.” (Make the most of the day, it’s going to rain.)"],
+["quedar","Acordar un encuentro con alguien.","“¿Quedamos a las ocho?”","To arrange to meet someone.","“¿Quedamos a las ocho?” (Shall we meet at eight?)"]
+];
+const EN={
+title:"Clara Boned, Spanish teacher",
+n1:"About me",n2:"Method",n3:"What a class is like",n4:"Reviews",n5:"Booking",n6:"Companies",n7:"Contact",
+h1:"Dynamic Spanish, tailored to you, with <span class=\"hl\">cultural immersion</span>.",
+hp:"I’ll guide you in learning Spanish by talking about what we live every day in Valencia, with classes prepared with you in mind. I’m Clara, a Spanish teacher with a PhD in Education.",
+btn_priv:"Book your private class",b2:"Classes for companies",
+alt_retrato:"Clara Boned, Spanish teacher",alt_sobre:"Clara Boned with tortoiseshell glasses, smiling",alt_aula:"Clara Boned with a laptop in a training room",
+wd:"Word of the day",wo:"Another word",
+t1b:"PhD in Education",t1s:"Academic training",
+t2b:"Degree in Teaching",t2s:"Teacher training",
+t3b:"3 years teaching Spanish",t3s:"Spanish as a foreign language",
+t4b:"University teacher",t4s:"In-person teaching in Valencia",
+s_h:"About me",
+s_p1:"I have a degree in Teaching and a PhD in Education. I’ve been teaching Spanish as a foreign language for three years, and that experience led me to create my own teaching method.",
+s_p2:"I currently teach Spanish as a foreign language in person at a university in Valencia, and I also work with private students who want more personal support.",
+s_p3:"My classes stand out because they are very dynamic. We’ll talk about your interests and practise while I teach and correct you. We’ll also chat about what’s going on in the city, so you learn grammar and vocabulary at the same time.",
+s_p4:"I understand English, so if you get stuck I can help with a word or a quick explanation. But we’ll speak Spanish as much of the time as possible: it’s the best way to learn.",
+c_len:"If you need support, I speak English, but in class we speak Spanish as much as possible.",
+s_b1:"See what a class is like ↓",s_b2:"What my students say",
+m_h:"My method",m_lead:"My own method, designed so that learning Spanish is useful from the very first class.",
+m1h:"Dynamic",m1p:"Active classes where you speak, take part and practise, instead of just listening to explanations.",
+m2h:"Tailored to you",m2p:"Every student has different goals and needs, and the content of the classes adapts to them.",
+m3h:"With cultural immersion",m3p:"Learning is always tied to culture: a language is understood better when it is lived.",
+c_h:"What a class with Clara is like",
+c_lead:"All my classes start from a conversation about something real. Grammar appears when you need it, and correction is constant and natural. Here is an example.",
+aria_dlg:"Example dialogue",
+c_ctx:"Valencia, early November. Clara starts the class with something you can see on the street.",
+est:"Student",
+c_exh:"What Clara explains",
+c_ya:"The action has already happened, sometimes earlier than expected. “Ya están puestas las luces.” (The lights are already up.)",
+c_tn:"The action has not happened, but it is expected to. “En mi país todavía no ponen luces.” (In my country they don’t put lights up yet.)",
+c_yn:"Something that used to happen and has stopped. “Ya no ponen luces en noviembre” means that they used to put them up before.",
+k1h:"It starts from real life",k1p:"The starting point is something you have seen or experienced in the city, not a list of exercises.",
+k2h:"Constant correction",k2p:"I correct you in the moment, without interrupting the conversation, so you keep talking.",
+k3h:"Grammar comes from mistakes",k3p:"The explanation comes up when the mistake makes it necessary, and you practise it right away.",
+o_h:"What my students say",o_nota:"★ 5 out of 5 · 12 reviews",o_lead:"Reviews from private-class students, shown in the language they were written.",
+r_h:"Book your class",
+r_lead:"Choose the day and time that suit you best. Bookings sync with my calendar, so you will only see free slots.",
+r_cb:"Choose your day and time",r_cp:"You will see my free slots instantly.",
+r1:"Pick a free slot in the calendar.",
+r2:"You will receive a confirmation email with the class details.",
+r3:"That same email explains how to pay and how to cancel.",
+pt_h:"Prices",pt_p:"Private class: €25 per hour. Each additional student pays €5 more. Companies: €40 per hour.",
+pp_h:"Payment",pp_p:"You pay after the class, by Revolut, PayPal, bank transfer or cash. The payment details come in the confirmation email.",
+pc_h:"Cancellation",pc_p:"You can cancel or reschedule your class up to 24 hours before.",
+e_h:"Spanish for companies",
+e_lead:"Spanish training for teams and professionals, with the same dynamic method, adapted to the real needs of your organisation.",
+e1h:"Tailor-made training",e1p:"I assess your team’s level and goals and design a specific programme.",
+e2h:"Professional Spanish",e2p:"Vocabulary and workplace situations, taught within the cultural context in which they are used.",
+e3h:"Teaching experience",e3p:"PhD in Education, with in-person university teaching in Valencia.",
+e_precio:"Company rate: €40 per hour.",e_btn:"Request a proposal",
+e_href:"mailto:hola@tudominio.com?subject=Spanish%20training%20for%20companies",
+ct_h:"Contact",ct_p:"Do you want private classes or a proposal for your company? Write to me and I’ll reply with a plan.",ct_b1:"Send an email",
+f1:"© 2026 Clara Boned. Spanish classes.",f2:"Legal notice",f3:"Privacy policy"
+};
+let lang="es",i=0;
+function pintaPalabra(){
+const p=palabras[i],en=lang==="en";
+document.getElementById("w-palabra").textContent=p[0];
+document.getElementById("w-def").textContent=en?p[3]:p[1];
+document.getElementById("w-ej").textContent=en?p[4]:p[2];
+}
+function setLang(l){
+lang=l;
+const en=l==="en";
+document.documentElement.lang=l;
+document.querySelectorAll("[data-i]").forEach(el=>{if(el.dataset.es===undefined)el.dataset.es=el.innerHTML;el.innerHTML=en?EN[el.dataset.i]:el.dataset.es;});
+document.querySelectorAll("[data-i-alt]").forEach(el=>{if(el.dataset.esAlt===undefined)el.dataset.esAlt=el.alt;el.alt=en?EN[el.dataset.iAlt]:el.dataset.esAlt;});
+document.querySelectorAll("[data-i-aria]").forEach(el=>{if(el.dataset.esAria===undefined)el.dataset.esAria=el.getAttribute("aria-label");el.setAttribute("aria-label",en?EN[el.dataset.iAria]:el.dataset.esAria);});
+document.querySelectorAll("[data-i-href]").forEach(el=>{if(el.dataset.esHref===undefined)el.dataset.esHref=el.getAttribute("href");el.setAttribute("href",en?EN[el.dataset.iHref]:el.dataset.esHref);});
+document.title=en?EN.title:"Clara Boned, profesora de español";
+document.querySelectorAll(".lang button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===l)));
+pintaPalabra();
+try{localStorage.setItem("lang",l);}catch(e){}
+}
+document.querySelectorAll(".lang button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+document.getElementById("w-otra").addEventListener("click",()=>{i=(i+1)%palabras.length;pintaPalabra();});
+let inicial="es";
+try{
+const g=localStorage.getItem("lang");
+if(g==="en"||g==="es")inicial=g;
+else if((navigator.language||"").toLowerCase().indexOf("en")===0)inicial="en";
+}catch(e){}
+if(inicial==="en")setLang("en");
+</script>
+</body>
+</html>
