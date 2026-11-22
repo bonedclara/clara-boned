@@ -584,8 +584,8 @@ if(inicial==="en")setLang("en");
 var fab=document.getElementById("chat-fab"),panel=document.getElementById("chat-panel"),form=document.getElementById("chat-form"),st=document.getElementById("chat-status"),btn=document.getElementById("chat-send");
 if(!fab||!panel||!form)return;
 var MAIL="bonedclara@gmail.com";
-var T={es:{sending:"Enviando…",ok:"¡Mensaje enviado! Te respondo pronto.",need:"Rellena tu nombre, un correo válido y el mensaje.",fail:"No se ha podido enviar. Escríbeme a ",send:"Enviar mensaje",subj:"Mensaje desde la web"},
-en:{sending:"Sending…",ok:"Message sent! I’ll reply soon.",need:"Please fill in your name, a valid email and your message.",fail:"It couldn’t be sent. Email me at ",send:"Send message",subj:"Message from the website"}};
+var T={es:{sending:"Enviando…",ok:"¡Mensaje enviado! Te respondo pronto.",need:"Rellena tu nombre, un correo válido y el mensaje.",fail:"No se ha podido enviar desde aquí. Pulsa para escribirme por correo: ",send:"Enviar mensaje",subj:"Mensaje desde la web"},
+en:{sending:"Sending…",ok:"Message sent! I’ll reply soon.",need:"Please fill in your name, a valid email and your message.",fail:"It couldn’t be sent from here. Tap to email me instead: ",send:"Send message",subj:"Message from the website"}};
 function L(){return document.documentElement.lang==="en"?T.en:T.es}
 function open(){panel.hidden=false;fab.setAttribute("aria-expanded","true");var f=document.getElementById("ch-name");if(f)f.focus()}
 function close(){panel.hidden=true;fab.setAttribute("aria-expanded","false");fab.focus()}
@@ -599,9 +599,10 @@ if(!(d.get("name")||"").trim()||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test((d.get("email
 if(d.get("_honey")){return}
 d.set("_subject",t.subj+" · espanolconclara.com");d.set("_captcha","false");d.set("_template","table");
 btn.disabled=true;btn.textContent=t.sending;
-fetch("https://formsubmit.co/ajax/"+MAIL,{method:"POST",headers:{"Accept":"application/json"},body:d}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
+var ac=("AbortController" in window)?new AbortController():null;var to=setTimeout(function(){if(ac)ac.abort()},12000);var hang=new Promise(function(_,rej){setTimeout(function(){rej(0)},13000)});
+Promise.race([fetch("https://formsubmit.co/ajax/"+MAIL,{method:"POST",headers:{"Accept":"application/json"},body:d,signal:ac?ac.signal:undefined}),hang]).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){
 if(j&&(j.success===true||j.success==="true")){st.textContent=t.ok;form.reset()}else{throw 0}
-}).catch(function(){st.innerHTML="";st.appendChild(document.createTextNode(t.fail));var a=document.createElement("a");a.href="mailto:"+MAIL;a.textContent=MAIL;st.appendChild(a)}).then(function(){btn.disabled=false;btn.textContent=L().send});
+}).catch(function(){clearTimeout(to);st.innerHTML="";st.appendChild(document.createTextNode(t.fail));var a=document.createElement("a");a.href="mailto:"+MAIL+"?subject="+encodeURIComponent(t.subj)+"&body="+encodeURIComponent((d.get("message")||"")+"\n\n"+(d.get("name")||"")+" · "+(d.get("email")||""));a.textContent=MAIL;st.appendChild(a)}).then(function(){btn.disabled=false;btn.textContent=L().send});
 });
 })();
 </script>
