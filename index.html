@@ -283,9 +283,19 @@ section h2::after{width:2.5rem;height:3px;margin-top:.5rem}
 .contacto p{margin-bottom:1rem}
 footer{padding:1.25rem 0;font-size:.88rem}
 }
+.cal .btn.sec{color:#fff;box-shadow:inset 0 0 0 2px #fff}
+.note-on{font-size:.9rem;margin:.9rem 0 0;color:var(--muted)}
+.notice{position:fixed;inset:0;z-index:70;background:rgba(20,33,61,.55);display:flex;align-items:center;justify-content:center;padding:1rem}
+.notice[hidden]{display:none}
+.notice-box{position:relative;background:var(--rosa);color:#14213D;border-radius:1.25rem;max-width:30rem;width:100%;padding:2rem 1.75rem 1.75rem;box-shadow:0 1.5rem 3rem rgba(0,0,0,.3)}
+.notice-box h2{font-family:var(--fd);font-size:1.9rem;line-height:1.1;margin:0 2rem .75rem 0;color:var(--granate)}
+.notice-box p{font-size:1.05rem;line-height:1.5;margin:.4rem 0 1.25rem}
+.notice-x{position:absolute;top:.75rem;right:.75rem;width:2.25rem;height:2.25rem;border-radius:50%;border:0;background:rgba(255,255,255,.65);color:#14213D;font-size:1.4rem;line-height:1;cursor:pointer}
+.notice-box .btns{gap:.6rem}
 </style>
 </head>
 <body>
+<div class="notice" id="notice" role="dialog" aria-modal="true" aria-labelledby="notice-t" hidden><div class="notice-box"><button type="button" class="notice-x" id="notice-x" aria-label="Cerrar / Close" data-i-aria="close">×</button><h2 id="notice-t" data-i="nt">Clases solo online del 16 dic al 9 ene</h2><p data-i="nb">Del <strong>16 de diciembre al 9 de enero</strong> daré las clases <strong>solo online</strong>, por Google Meet. Si sueles venir a clase presencial, puedes reservar tu clase online desde aquí.</p><div class="btns"><a class="btn" href="#reservas" id="notice-go" data-i="ng">Reservar clase online</a><button type="button" class="btn sec" id="notice-ok" data-i="no">Entendido</button></div></div></div>
 <header class="wrap">
 <nav>
 <b>Clara Boned</b>
@@ -393,7 +403,7 @@ footer{padding:1.25rem 0;font-size:.88rem}
 <h2 data-i="r_h">Reserva tu clase</h2>
 <p class="lead" data-i="r_lead">Elige el día y la hora que mejor te vengan. Las reservas se sincronizan con mi calendario, así que solo verás los huecos libres.</p>
 <div class="reserva">
-<div class="cal"><div><b data-i="r_cb">Elige tu día y hora</b><p data-i="r_cp">Verás mis huecos libres al momento.</p><a class="btn" href="https://cal.com/clara-boned-7xeten/clase-individual" target="_blank" rel="noopener" data-i="btn_priv">Reserva tu clase privada</a></div></div>
+<div class="cal"><div><b data-i="r_cb">Elige tu día y hora</b><p data-i="r_cp">Verás mis huecos libres al momento.</p><div class="btns"><a class="btn" href="https://cal.com/clara-boned-7xeten/clase-individual" target="_blank" rel="noopener" data-i="btn_pres">Clase presencial</a><a class="btn sec" href="https://cal.com/clara-boned-7xeten/clase-individual-online" target="_blank" rel="noopener" data-i="btn_onl">Clase online</a></div><p class="note-on" data-i="r_note">Del 16 de diciembre al 9 de enero solo hay clases online.</p></div></div>
 <div>
 <ol class="pasos">
 <li data-i="r1">Elige un hueco libre en el calendario.</li>
@@ -492,6 +502,10 @@ const palabras=[
 const EN={
 title:"Clara Boned, Spanish teacher",
 n1:"About me",n2:"Method",n3:"What a class is like",n4:"Reviews",n5:"Booking",n6:"Companies",n7:"Contact",
+btn_pres:"In-person class",btn_onl:"Online class",r_note:"From 16 December to 9 January, classes are online only.",
+nt:"Online-only classes from 16 Dec to 9 Jan",
+nb:"From <strong>16 December to 9 January</strong> I will teach <strong>online only</strong>, via Google Meet. If you usually come to in-person classes, you can book your online class here.",
+ng:"Book an online class",no:"Got it",close:"Close",
 h1:"Dynamic Spanish, tailored to you, with <span class=\"hl\">cultural immersion</span>.",
 hp:"I’ll guide you in learning Spanish by talking about what we live every day in Valencia, with classes prepared with you in mind. I’m Clara, a passionate and <mark class=\"mk\">qualified</mark> Spanish teacher.",
 btn_priv:"Book your private class",b2:"Classes for companies",
@@ -621,6 +635,22 @@ document.getElementById("legal-x").addEventListener("click",close);
 box.addEventListener("click",function(e){if(e.target===box)close()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!box.hidden)close()});
 document.querySelectorAll(".lang button").forEach(function(b){b.addEventListener("click",function(){if(!box.hidden)setTimeout(render,0)})});
+})();
+</script>
+<script>
+(function(){
+var n=document.getElementById("notice");if(!n)return;
+var end=new Date(2027,0,10);
+var seen=false;try{seen=sessionStorage.getItem("avisoOnline")==="1"}catch(e){}
+if(new Date()>=end||seen)return;
+function close(){n.hidden=true;try{sessionStorage.setItem("avisoOnline","1")}catch(e){}}
+n.hidden=false;
+document.getElementById("notice-x").addEventListener("click",close);
+document.getElementById("notice-ok").addEventListener("click",close);
+document.getElementById("notice-go").addEventListener("click",close);
+n.addEventListener("click",function(e){if(e.target===n)close()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!n.hidden)close()});
+document.getElementById("notice-ok").focus();
 })();
 </script>
 </body>
